@@ -8,7 +8,7 @@ $sku=$_GET['sku'];
 $sku=str_replace(" ","",$sku);
 $querypage=file_get_contents("https://www.lethalperformance.com/catalogsearch/result/?q=".$sku);
 $start=strpos($querypage,'<section class="cat-listing-filter-main" id="cat-listing-filter-main-section">');
-
+$fs=$sku;
 $end=strpos($querypage,"</section>",$start);
 $end=$end+10;
 if($start!=0)
@@ -19,7 +19,9 @@ $querypage=substr($querypage,$start,$end-$start);
 }
 else{
 $main="https://www.lethalperformance.com/catalogsearch/result/?q=".$sku;
+
 $sku='';
+
 }
 }
 
@@ -33,6 +35,7 @@ if($main!='' || $_GET['main']!='')
     }
     else{
         $GET['main']=$main;
+        //$GET_['fs']=$fs;
     }
     
     $start=strpos($querypage,'<div class="product-top-left">');
@@ -42,6 +45,8 @@ if($main!='' || $_GET['main']!='')
 
 if($_GET['final']!='')
 {
+    if($_GET['fs']!='')
+    $fs=$_GET['fs'];
     unlink("a1.jpg");
     unlink("a2.jpg");
     unlink("a3.jpg");
@@ -99,6 +104,8 @@ if($_GET['totalurl']==1)
     $querypage=str_ireplace("lethal","HSI",$querypage);
     $a='<img src="'.$_GET["imgurl1"].'" height="300px" >';
     $querypage=$a.$querypage;
+    $a='<div>'.$fs.'</div>';
+    $querypage=$a.$querypage;
 }
 
 
@@ -118,7 +125,8 @@ if($_GET['totalurl']==1)
 <?php 
 if($sku!='')
 {
-echo 'var sku="'.$sku.'";';?>
+echo 'var sku="'.$sku.'";';
+echo 'var fs="'.$fs.'";';?>
 
 document.querySelector("#phpcontent").innerHTML=document.querySelector("#cat-listing-filter-main-section .container").innerHTML; 
 a=document.querySelector(".cat-listing-filter-right").innerText;
@@ -136,13 +144,13 @@ for(i=1;i<=c.length;i=i+2)
 a=c[i].querySelector('.product-home-sku > p > span');
 a.remove();
 a=c[i].querySelector('.product-home-sku > p').innerText;
-console.log(a);
+//console.log(a);
 a=a.replace(/\s/g, '');
 if(a==sku)
 {
 b=c[i].querySelector('.product-image').getAttribute("href");
-console.log(b);
-window.location.href = 'http://127.0.0.1/?main='+b;
+console.log(fs);
+window.location.href = 'http://127.0.0.1/?main='+b+'&fs='+fs;
 }
 }
 
@@ -151,6 +159,12 @@ window.location.href = 'http://127.0.0.1/?main='+b;
 <?php if($main!='')
 {
     echo 'var main="'.$main.'";';
+    if($_GET['fs']=='')
+    echo 'var fs="'.$fs.'";';
+    else
+    echo 'var fs="'.$_GET['fs'].'";';
+    
+
     ?>
     document.querySelector("#phpcontent").innerHTML=document.querySelector("#rg-gallery ul").innerHTML;
     var c = document.getElementById("phpcontent").childNodes;
@@ -167,16 +181,19 @@ window.location.href = 'http://127.0.0.1/?main='+b;
         imgurl=imgurl+'&imgurl'+total+'='+b;
         
     }
-    console.log(imgurl);
+    //console.log(imgurl);
     url='&totalurl='+total+imgurl;
     final='final='+main+url;
-    console.log(final);
-    window.location.href = 'http://127.0.0.1/?'+final;
+    console.log(fs);
+    window.location.href = 'http://127.0.0.1/?'+final+'&fs='+fs;
 
 
 <?php }?>
 <?php if($final!="")
-{?>
+{
+    echo 'var fs="'.$fs.'";';
+    ?>
+
 document.getElementById('producttabs1').innerHTML=document.getElementById('collateral-tabs').innerHTML;
 document.getElementById('producttabs1').innerHTML=document.querySelector('.tab-container:nth-child(2)').innerHTML;
 document.getElementById('producttabs1').innerHTML=document.querySelector('.std').innerHTML;
@@ -186,7 +203,7 @@ document.getElementById("producttabs1").addEventListener("click", function() {
 function copyToClipboard(text) {
   window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
 }
-
+console.log(fs);
  
 <?php }?>
 </script>
