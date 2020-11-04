@@ -51,6 +51,7 @@ if($_GET['final']!='')
     unlink("a7.jpg");
     unlink("a8.jpg");
     unlink("a9.jpg");
+    unlink("a10.jpg");
     unlink("a11.jpg");
     unlink("a12.jpg");
     unlink("a13.jpg");
