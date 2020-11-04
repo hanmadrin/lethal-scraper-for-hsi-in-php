@@ -78,6 +78,11 @@ if($_GET['final']!='')
             //echo $_GET['imgurl'.$i];
         }
     }
+if($_GET['totalurl']==1)
+{
+    if(strpos($_GET['imgurl1'],'placeholder/default/loyaltylogo_small.png'))
+    unlink('a1.jpg');
+}
     $final=$_GET['final'];
     $querypage=file_get_contents($_GET['final']);
     if(strpos($querypage,'<div class="product-options" id="product-options-wrapper">'))
