@@ -96,7 +96,7 @@ if($_GET['totalurl']==1)
     }
     $start=strpos($querypage,'<div class="sixth">');
     $end=strpos($querypage,'<div class="seventh">',$start);
-    $querypage2=substr($querypage,$start,$end-$start);
+    $querypage2='<div style="padding:20px">'.substr($querypage,$start,$end-$start).'</div>';
     $start=strpos($querypage,'<section class="producttabs clearfix" id="producttabs1">');
     $end=strpos($querypage,'</section>',$start);
     $querypage3=substr($querypage,$start,$end-$start);
