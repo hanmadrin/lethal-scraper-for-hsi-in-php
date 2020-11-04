@@ -93,6 +93,10 @@ if($_GET['totalurl']==1)
     if(strpos($querypage,'<div class="product-options" id="product-options-wrapper">'))
     {
         $querypage1='<div id="vardetect" style="height:100px;width:100%;background-color:red;"></div>';
+        $hsidata=fopen('hsidata.txt','a');
+        $data=$fs."\n";
+        fwrite($hsidata,$data);
+        fclose($hsidata);
     }
     $start=strpos($querypage,'<div class="sixth">');
     $end=strpos($querypage,'<div class="seventh">',$start);
