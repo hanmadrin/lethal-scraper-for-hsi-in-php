@@ -108,7 +108,7 @@ if($_GET['totalurl']==1)
     $querypage=str_ireplace("lethal","HSI",$querypage);
     $a='<img src="'.$_GET["imgurl1"].'" height="300px" >';
     $querypage=$a.$querypage;
-    $a='<div>'.$fs.'</div>';
+    $a='<div id="finalsku">'.$fs.'</div>';
     $querypage=$a.$querypage;
 }
 
@@ -202,11 +202,18 @@ document.getElementById('producttabs1').innerHTML=document.getElementById('colla
 document.getElementById('producttabs1').innerHTML=document.querySelector('.tab-container:nth-child(2)').innerHTML;
 document.getElementById('producttabs1').innerHTML=document.querySelector('.std').innerHTML;
 document.getElementById("producttabs1").addEventListener("click", function() {
-    copyToClipboard(document.getElementById('producttabs1').innerHTML);
+    window.getSelection().selectAllChildren(
+    document.getElementById("producttabs1")
+);
+document.execCommand("copy");
+//document.execCommand("copy");
+    //copyToClipboard(document.getElementById('producttabs1').innerHTML);
 }); 
-function copyToClipboard(text) {
+
+
+/*function copyToClipboard(text) {
   window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
-}
+}*/
 console.log(fs);
  
 <?php }?>
