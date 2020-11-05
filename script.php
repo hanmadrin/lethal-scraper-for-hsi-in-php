@@ -209,7 +209,12 @@ document.execCommand("copy");
 //document.execCommand("copy");
     //copyToClipboard(document.getElementById('producttabs1').innerHTML);
 }); 
-
+document.getElementById("finalsku").addEventListener("click", function() {
+window.getSelection().selectAllChildren(
+document.getElementById("finalsku")
+);
+document.execCommand("copy");
+});
 
 /*function copyToClipboard(text) {
   window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
